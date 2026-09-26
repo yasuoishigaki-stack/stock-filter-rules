@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>スクリーニング条件 | 高配当株ウォッチャー</title>
+  <style>
+    :root {
+      --bg: #f4efe6;
+      --ink: #1c1916;
+      --muted: #6b6258;
+      --card: #fffdf8;
+      --line: #e4d8c4;
+      --on: #1f7a4d;
+      --on-bg: #e5f5eb;
+      --off: #7a7268;
+      --off-bg: #efeae1;
+      --accent: #9a3412;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Hiragino Sans", "Yu Gothic UI", "Noto Sans JP", sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.55;
+    }
+    main { max-width: 42rem; margin: 0 auto; padding: 1.25rem 1rem 3rem; }
+    header h1 { font-size: 1.35rem; margin: 0 0 .35rem; }
+    .lede, .meta, .rule { color: var(--muted); }
+    .meta { font-size: .85rem; margin: .25rem 0 1rem; }
+    .actions { display: flex; gap: .6rem; flex-wrap: wrap; margin: 1rem 0 1.4rem; }
+    a.btn {
+      display: inline-block;
+      padding: .55rem .9rem;
+      border-radius: 999px;
+      text-decoration: none;
+      font-weight: 650;
+      background: var(--ink);
+      color: #fff;
+    }
+    a.btn.sub { background: transparent; color: var(--ink); border: 1px solid var(--line); }
+    .grid { display: grid; gap: .75rem; }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 1rem;
+      padding: .9rem 1rem;
+    }
+    .card.off { opacity: .72; }
+    .card-top { display: flex; justify-content: space-between; align-items: center; }
+    .group { font-size: .75rem; letter-spacing: .04em; color: var(--muted); }
+    .pill {
+      font-size: .72rem;
+      font-weight: 700;
+      padding: .15rem .5rem;
+      border-radius: 999px;
+    }
+    .pill.on { background: var(--on-bg); color: var(--on); }
+    .pill.off { background: var(--off-bg); color: var(--off); }
+    .card h2 { margin: .35rem 0 .15rem; font-size: 1.05rem; }
+    .value { margin: 0; font-size: 1.2rem; font-weight: 700; }
+    .card.off .value { color: var(--off); }
+    .note, .box {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 1rem;
+      padding: 1rem;
+      margin: 1rem 0;
+    }
+    h2.sec { font-size: 1.05rem; margin: 1.6rem 0 .6rem; }
+    ul { padding-left: 1.1rem; }
+    code { background: #efe7d8; padding: .05rem .35rem; border-radius: .3rem; }
+    footer { margin-top: 2rem; font-size: .8rem; color: var(--muted); }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <h1>翌週検討のスクリーニング条件</h1>
+      <p class="lede">金曜の J-Quants Refresh 後に使う判定です。欠測の指標はスキップ（通過）します。</p>
+      <p class="meta">更新 2026-09-26 14:15 JST</p>
+      <div class="actions">
+        <a class="btn" href="https://github.com/yasuoishigaki-stack/jp-stock-watcher/edit/main/config.yaml">条件を変更する</a>
+        <a class="btn sub" href="https://github.com/yasuoishigaki-stack/jp-stock-watcher/blob/main/config.yaml">YAMLを見る</a>
+      </div>
+    </header>
+
+    <section class="box">
+      <strong>使い方</strong>
+      <p>この画面は常時起動しません。通知の「条件」から開きます。変更は GitHub の編集画面で `config.yaml` を直し、コミットすれば翌金曜の判定に入ります。</p>
+    </section>
+
+    <h2 class="sec">判定中の条件</h2>
+    <div class="grid">
+      
+            <article class="card on">
+              <div class="card-top">
+                <span class="group">配当</span>
+                <span class="pill on">ON</span>
+              </div>
+              <h2>配当利回り</h2>
+              <p class="value">≧4%</p>
+              <p class="rule">予想配当 ÷ 株価</p>
+            </article>
+            <article class="card off">
+              <div class="card-top">
+                <span class="group">配当</span>
+                <span class="pill off">OFF</span>
+              </div>
+              <h2>配当性向 下限</h2>
+              <p class="value">≧30%</p>
+              <p class="rule">無理のない配当の下限</p>
+            </article>
+            <article class="card on">
+              <div class="card-top">
+                <span class="group">配当</span>
+                <span class="pill on">ON</span>
+              </div>
+              <h2>配当性向 上限</h2>
+              <p class="value">≦70%</p>
+              <p class="rule">無理な配当を除外</p>
+            </article>
+            <article class="card on">
+              <div class="card-top">
+                <span class="group">配当</span>
+                <span class="pill on">ON</span>
+              </div>
+              <h2>減配なし</h2>
+              <p class="value">5年</p>
+              <p class="rule">過去の年間配当</p>
+            </article>
+            <article class="card on">
+              <div class="card-top">
+                <span class="group">割安</span>
+                <span class="pill on">ON</span>
+              </div>
+              <h2>PBR</h2>
+              <p class="value">≦1倍</p>
+              <p class="rule">株価 ÷ BPS</p>
+            </article>
+            <article class="card on">
+              <div class="card-top">
+                <span class="group">割安</span>
+                <span class="pill on">ON</span>
+              </div>
+              <h2>PER</h2>
+              <p class="value">≦15倍</p>
+              <p class="rule">株価 ÷ 予想EPS</p>
+            </article>
+            <article class="card on">
+              <div class="card-top">
+                <span class="group">割安</span>
+                <span class="pill on">ON</span>
+              </div>
+              <h2>時価総額</h2>
+              <p class="value">≧100億円</p>
+              <p class="rule">超小型を除外</p>
+            </article>
+            <article class="card off">
+              <div class="card-top">
+                <span class="group">財務</span>
+                <span class="pill off">OFF</span>
+              </div>
+              <h2>自己資本比率</h2>
+              <p class="value">≧40%</p>
+              <p class="rule">金融・商社を弾きやすい</p>
+            </article>
+            <article class="card on">
+              <div class="card-top">
+                <span class="group">財務</span>
+                <span class="pill on">ON</span>
+              </div>
+              <h2>営業利益 連続黒字</h2>
+              <p class="value">5年</p>
+              <p class="rule">自己資本比率の代わり</p>
+            </article>
+            <article class="card off">
+              <div class="card-top">
+                <span class="group">財務</span>
+                <span class="pill off">OFF</span>
+              </div>
+              <h2>金融株除外</h2>
+              <p class="value">除外しない</p>
+              <p class="rule">銀行・保険などを外す</p>
+            </article>
+            <article class="card off">
+              <div class="card-top">
+                <span class="group">収益性</span>
+                <span class="pill off">OFF</span>
+              </div>
+              <h2>営業利益率</h2>
+              <p class="value">≧10%</p>
+              <p class="rule">PBR≦1と矛盾しやすい</p>
+            </article>
+            <article class="card off">
+              <div class="card-top">
+                <span class="group">収益性</span>
+                <span class="pill off">OFF</span>
+              </div>
+              <h2>ROE</h2>
+              <p class="value">≧8%</p>
+              <p class="rule">PBR≦1と矛盾しやすい</p>
+            </article>
+            <article class="card on">
+              <div class="card-top">
+                <span class="group">テクニカル</span>
+                <span class="pill on">ON</span>
+              </div>
+              <h2>落ちるナイフ回避</h2>
+              <p class="value">どちらか一方で通過</p>
+              <p class="rule">株価 &gt; SMA25 または RSI14 ≦ 30</p>
+            </article>
+    </div>
+
+    <h2 class="sec">運用メモ</h2>
+    <div class="box">
+      <ul>
+        <li>ユニバース: all_tse / 株価取得上限 400 銘柄</li>
+        <li>翌週検討の掲載上限: 20 銘柄</li>
+        <li>決算 7 日以内は警告のみ（除外しない）</li>
+        <li>日次ウォッチ初回は 11:00 未満。2回目以降は 始値比 ±1% 以上</li>
+        <li>暴落: VIX ≧ 25 または 日経平均 前日比 ≦ -3%</li>
+      </ul>
+    </div>
+
+    <h2 class="sec">ウォッチリスト</h2>
+    <div class="box">
+      <ul><li><code>9005.T</code> / 通常監視</li><li><code>3197.T</code> / 通常監視</li></ul>
+    </div>
+
+    <footer>高配当株ウォッチャー / 専用条件画面。サーバーは動かしていません。</footer>
+  </main>
+</body>
+</html>
