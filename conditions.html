@@ -79,9 +79,10 @@
     <header>
       <h1>翌週検討のスクリーニング条件</h1>
       <p class="lede">金曜の J-Quants Refresh 後に使う判定です。欠測の指標はスキップ（通過）します。</p>
-      <p class="meta">更新 2026-09-26 14:40 JST</p>
+      <p class="meta">更新 2026-09-30 20:22 JST</p>
       <div class="actions">
         <a class="btn" href="https://github.com/yasuoishigaki-stack/jp-stock-watcher/edit/main/config.yaml">条件を変更する</a>
+        <a class="btn sub" href="watchlist.html">ウォッチリストを編集</a>
       </div>
       <p class="meta">設定ファイルの参照・編集は管理者のみです。この画面の閲覧は共有して問題ありません。</p>
     </header>
@@ -219,7 +220,7 @@
         <li>ユニバース: all_tse / 株価取得上限 400 銘柄</li>
         <li>翌週検討の掲載上限: 20 銘柄</li>
         <li>決算 7 日以内は警告のみ（除外しない）</li>
-        <li>日次ウォッチ初回は 11:00 未満。2回目以降は 始値比 ±1% 以上</li>
+        <li>日次ウォッチ初回は午前中（12:00 未満）に1通。12:00-15:00 は 始値比 ±1% 以上。引け後は翌営業日 8:50 に繰り越し</li>
         <li>暴落: VIX ≧ 25 または 日経平均 前日比 ≦ -3%</li>
       </ul>
     </div>
