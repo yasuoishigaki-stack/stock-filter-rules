@@ -30,7 +30,7 @@
     .lede, .meta, .rule { color: var(--muted); }
     .meta { font-size: .85rem; margin: .25rem 0 1rem; }
     .actions { display: flex; gap: .6rem; flex-wrap: wrap; margin: 1rem 0 1.4rem; }
-    a.btn {
+    a.btn, button.btn {
       display: inline-block;
       padding: .55rem .9rem;
       border-radius: 999px;
@@ -38,11 +38,20 @@
       font-weight: 650;
       background: var(--ink);
       color: #fff;
+      border: 0;
+      cursor: pointer;
+      font: inherit;
     }
-    a.btn, button.btn { display: inline-block; padding: .55rem .9rem; border-radius: 999px; text-decoration: none; font-weight: 650; background: var(--ink); color: #fff; border: 0; cursor: pointer; font: inherit; }
     a.btn.sub { background: transparent; color: var(--ink); border: 1px solid var(--line); }
     label { display: block; font-size: .85rem; margin: .6rem 0 .25rem; }
-    input[type="password"] { width: 100%; padding: .55rem .7rem; border: 1px solid var(--line); border-radius: .5rem; font: inherit; background: #fff; }
+    input[type="password"] {
+      width: 100%;
+      padding: .55rem .7rem;
+      border: 1px solid var(--line);
+      border-radius: .5rem;
+      font: inherit;
+      background: #fff;
+    }
     .status { min-height: 1.2rem; font-size: .9rem; color: var(--muted); }
     .status.err { color: var(--accent); }
     .grid { display: grid; gap: .75rem; }
@@ -84,11 +93,10 @@
     <header>
       <h1>翌週検討のスクリーニング条件</h1>
       <p class="lede">金曜引け後の J-Quants Refresh 後に使う判定です。欠測の指標はスキップ（通過）します。</p>
-      <p class="meta">更新 2026-11-21 19:10 JST</p>
-      
+      <p class="meta">更新 2026-11-21 19:12 JST</p>
     </header>
 
-    <section class="box" id="gate">
+    <section class="box" id="gate" >
       <strong>閲覧パスワード</strong>
       <p class="meta">通知の「条件」から開く画面です。パスワードを知っている人だけが条件を見られます。</p>
       <label for="page-password">パスワード</label>
@@ -105,15 +113,15 @@
         <a class="btn sub" href="watchlist.html">ウォッチリストを編集</a>
       </div>
       <p class="meta">設定ファイルの参照・編集は管理者のみです。この画面の閲覧にはパスワードが必要です。</p>
+
       <section class="box">
         <strong>使い方</strong>
         <p>この画面は常時起動しません。通知の「条件」から開きます。変更は GitHub の編集画面で <code>config.yaml</code> を直し、コミットすれば翌金曜の判定に入ります。</p>
       </section>
 
-
-    <h2 class="sec">判定中の条件</h2>
-    <div class="grid">
-      
+      <h2 class="sec">判定中の条件</h2>
+      <div class="grid">
+        
             <article class="card on">
               <div class="card-top">
                 <span class="group">配当</span>
@@ -231,37 +239,40 @@
               <p class="value">どちらか一方で通過</p>
               <p class="rule">株価 &gt; SMA25 または RSI14 ≦ 30</p>
             </article>
-    </div>
+      </div>
 
-    <h2 class="sec">運用メモ</h2>
-    <div class="box">
-      <ul>
-        <li>ユニバース: all_tse / 株価取得上限 400 銘柄</li>
-        <li>翌週検討の掲載上限: 7 銘柄</li>
-        <li>決算 7 日以内は警告のみ（除外しない）</li>
-        <li>日次ウォッチ初回は午前中（12:00 未満）に1通。日中は 2発目は始値比 ±2% 以上、3発目以降は前回比 ±1% 以上。引け後は翌営業日 8:50 に繰り越し</li>
-        <li>暴落: VIX ≧ 25 または 日経平均 前日比 ≦ -3%。1日の初回は通知し、以降は警戒レベルが上がったときだけ再通知</li>
-        <li>翌週検討は金曜 17:00 以降の Refresh 成功後（cron 遅延時は土曜午前に繰り越し）</li>
-      </ul>
-    </div>
-
-    <footer>高配当株ウォッチャー / 専用条件画面。サーバーは動かしていません。</footer>
+      <h2 class="sec">運用メモ</h2>
+      <div class="box">
+        <ul>
+          <li>ユニバース: all_tse / 株価取得上限 400 銘柄</li>
+          <li>翌週検討の掲載上限: 7 銘柄</li>
+          <li>決算 7 日以内は警告のみ（除外しない）</li>
+          <li>日次ウォッチ初回は午前中（12:00 未満）に1通。日中は 2発目は始値比 ±2% 以上、3発目以降は前回比 ±1% 以上。引け後は翌営業日 8:50 に繰り越し</li>
+          <li>暴落: VIX ≧ 25 または 日経平均 前日比 ≦ -3%。1日の初回は通知し、以降は警戒レベルが上がったときだけ再通知</li>
+          <li>翌週検討は金曜 17:00 以降の Refresh 成功後（cron 遅延時は土曜午前に繰り越し）</li>
+        </ul>
+      </div>
+      <footer>高配当株ウォッチャー / 専用条件画面。サーバーは動かしていません。</footer>
     </div>
   </main>
+
   <script>
-    const PASS_HASH = "7b749dad6dea87981353c58f54c66ef02bd628f7496c87b4a5347ebe965f734c";
+    const PASS_HASH = "c3b149e60f27df4f3829f7d049d32225a943cc1a885b3c199bd431768c4625a8";
     const SALT = "jp-stock-watcher-conditions";
     const KEY = "conditions_page_unlocked";
     const $ = (id) => document.getElementById(id);
+
     async function sha256(text) {
       const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(text));
       return [...new Uint8Array(buf)].map((b) => b.toString(16).padStart(2, "0")).join("");
     }
+
     function unlock() {
       $("gate").hidden = true;
       $("protected").hidden = false;
       sessionStorage.setItem(KEY, PASS_HASH);
     }
+
     async function tryUnlock(password) {
       const hash = await sha256(SALT + ":" + password);
       if (hash !== PASS_HASH) {
@@ -271,7 +282,10 @@
       }
       unlock();
     }
-    if (sessionStorage.getItem(KEY) === PASS_HASH) unlock();
+
+    if (sessionStorage.getItem(KEY) === PASS_HASH) {
+      unlock();
+    }
     $("unlock").addEventListener("click", () => tryUnlock($("page-password").value));
     $("page-password").addEventListener("keydown", (ev) => {
       if (ev.key === "Enter") tryUnlock($("page-password").value);
